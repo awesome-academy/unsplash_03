@@ -1,6 +1,5 @@
 # Unsplash (P2 MVVM)
-* Trainee:
-* [To:5851110][DN_Fresher_Android] Tran Huu Luong
+* Trainee:[To:5851110][DN_Fresher_Android] Tran Huu Luong
 * Trainer: TuanLVT
 * Start date: 21/06/2021
 * End date: 29/06/2021
