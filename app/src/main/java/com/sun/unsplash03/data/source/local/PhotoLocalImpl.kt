@@ -1,6 +1,6 @@
-package com.sun.unsplash03.data.source
+package com.sun.unsplash03.data.source.local
 
-import androidx.lifecycle.LiveData
+import com.sun.unsplash03.data.source.PhotoDataSource
 import com.sun.unsplash03.data.source.local.dao.CollectionDAO
 import com.sun.unsplash03.data.source.local.entity.CollectionEntity
 

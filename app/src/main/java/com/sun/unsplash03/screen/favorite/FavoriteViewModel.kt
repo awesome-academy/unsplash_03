@@ -8,6 +8,8 @@ import kotlinx.coroutines.launch
 
 class FavoriteViewModel(private val repository: PhotoRepository) : BaseViewModel() {
 
+    val collections = repository.getAllCollections()
+
     fun insertCollection(collection: CollectionEntity) = viewModelScope.launch {
         repository.insertCollection(collection)
     }
