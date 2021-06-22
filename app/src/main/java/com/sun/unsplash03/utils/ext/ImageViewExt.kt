@@ -7,5 +7,6 @@ import com.bumptech.glide.Glide
 fun ImageView.loadImageWithUrl(url: String) {
     Glide.with(this)
         .load(url)
+        .skipMemoryCache(true)
         .into(this)
 }
