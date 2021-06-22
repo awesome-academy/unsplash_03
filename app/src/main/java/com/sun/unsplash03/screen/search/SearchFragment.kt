@@ -1,8 +1,10 @@
 package com.sun.unsplash03.screen.search
 
-import android.graphics.Color
+import android.app.SearchManager
+import android.content.Context
+import android.database.Cursor
+import android.provider.SearchRecentSuggestions
 import android.view.LayoutInflater
-import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
@@ -17,12 +19,15 @@ import com.sun.unsplash03.screen.detail.DetailFragment
 import com.sun.unsplash03.screen.photo.adapter.PhotoAdapter
 import com.sun.unsplash03.utils.base.BaseFragment
 import com.sun.unsplash03.utils.ext.*
+import com.sun.unsplash03.utils.provider.HistorySuggestionProvider
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
     private val photoAdapter by lazy { PhotoAdapter(::clickPhotoItem) }
     private val collectionAdapter by lazy { CollectionAdapter(::clickItemCollection) }
+    private var suggestions: SearchRecentSuggestions? = null
+    private var searchManager: SearchManager? = null
 
     override val viewModel: SearchViewModel by viewModel()
     override fun inflateViewBinding(inflater: LayoutInflater) =
@@ -35,6 +40,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
             adapterPhoto = photoAdapter
             adapterCollection = collectionAdapter
         }
+        searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        suggestions = SearchRecentSuggestions(
+            requireContext(),
+            HistorySuggestionProvider.AUTHORITY,
+            HistorySuggestionProvider.MODE
+        )
     }
 
     override fun bindView() {
@@ -45,7 +56,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
             (recyclerPhotoSearch.layoutManager as StaggeredGridLayoutManager).gapStrategy =
                 StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
             searchView.run {
+                setSearchableInfo(searchManager?.getSearchableInfo(activity?.componentName))
                 requestFocus()
+                isQueryRefinementEnabled = true
                 setOnQueryTextFocusChangeListener { _, hasFocus ->
                     if (hasFocus) {
                         showKeyboard(requireActivity())
@@ -55,6 +68,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
                     override fun onQueryTextSubmit(query: String?): Boolean {
                         query?.let {
                             this@SearchFragment.viewModel.searchContent(query)
+                            suggestions?.saveRecentQuery(it, null)
                             viewBinding.searchView.clearFocus()
                         }
                         return false
@@ -62,9 +76,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
                     override fun onQueryTextChange(newText: String?) = false
                 })
-                toolbarSearch.setNavigationOnClickListener {
-                    parentFragmentManager.popBackStack()
-                    hideKeyboard(requireActivity())
+                setOnSuggestionListener(object : SearchView.OnSuggestionListener {
+                    override fun onSuggestionSelect(position: Int) = true
+
+                    override fun onSuggestionClick(position: Int): Boolean {
+                        setQuery(getQuerySearchView(position), true)
+                        return true
+                    }
+                })
+            }
+            toolbarSearch.setNavigationOnClickListener {
+                parentFragmentManager.popBackStack()
+                it.hideKeyboard(requireActivity())
+            }
+            requireActivity().intent.run {
+                getStringExtra(SearchManager.QUERY)?.let {
+                    suggestions?.saveRecentQuery(it, null)
                 }
             }
         }
@@ -98,6 +125,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
     private fun clickItemCollection(collection: Collection) {
         replaceFragment(R.id.containerFrameLayout, CollectionPhotoFragment.newInstance(collection))
+    }
+
+    private fun getQuerySearchView(position: Int): String {
+        val selectedView = viewBinding.searchView.suggestionsAdapter
+        val cursor = selectedView.getItem(position) as Cursor
+        val index = cursor.getColumnIndexOrThrow(SearchManager.SUGGEST_COLUMN_TEXT_1)
+        return cursor.getString(index).toString()
     }
 
     companion object {
