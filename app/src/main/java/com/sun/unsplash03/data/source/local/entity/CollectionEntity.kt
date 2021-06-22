@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "FAV_COLLECTIONS")
 data class CollectionEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = 0,
+    val id: Int = 0,
     val title: String,
     val coverPath: String
 )
