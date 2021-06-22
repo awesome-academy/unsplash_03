@@ -8,6 +8,10 @@
         <variable
             name="viewModel"
             type="com.sun.unsplash03.screen.collection.CollectionViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.sun.unsplash03.screen.collection.adapter.CollectionAdapter" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -19,6 +23,7 @@
             android:id="@+id/recyclerCollection"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:adapter="@{adapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_collection" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

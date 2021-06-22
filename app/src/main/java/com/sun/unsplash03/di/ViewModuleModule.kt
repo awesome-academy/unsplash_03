@@ -13,7 +13,7 @@ val viewModelModule = module {
     viewModel { MainViewModel() }
     viewModel { HomeViewModel() }
     viewModel { PhotoViewModel(get()) }
-    viewModel { CollectionViewModel() }
+    viewModel { CollectionViewModel(get()) }
     viewModel { FavoriteViewModel() }
     viewModel { DetailViewModel() }
 }
