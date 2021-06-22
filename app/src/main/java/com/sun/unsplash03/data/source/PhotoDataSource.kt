@@ -4,10 +4,13 @@ import com.sun.unsplash03.data.model.Collection
 import com.sun.unsplash03.data.model.Photo
 import com.sun.unsplash03.data.model.SearchCollectionResponse
 import com.sun.unsplash03.data.model.SearchPhotoResponse
+import com.sun.unsplash03.data.source.local.entity.CollectionEntity
 
 interface PhotoDataSource {
 
-    interface Local
+    interface Local {
+        suspend fun insertCollection(collection: CollectionEntity)
+    }
 
     interface Remote {
         suspend fun getPhotos(page: Int?): MutableList<Photo>

@@ -16,7 +16,7 @@ val viewModelModule = module {
     viewModel { HomeViewModel() }
     viewModel { PhotoViewModel(get()) }
     viewModel { CollectionViewModel(get()) }
-    viewModel { FavoriteViewModel() }
+    viewModel { FavoriteViewModel(get()) }
     viewModel { DetailViewModel() }
     viewModel { CollectionPhotoViewModel(get()) }
     viewModel { SearchViewModel(get()) }

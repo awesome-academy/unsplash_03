@@ -4,4 +4,9 @@
     <string name="collection">Collection</string>
     <string name="favorite">Favorite</string>
     <string name="search">Search</string>
+    <string name="collection_title">Collection title</string>
+    <string name="select_cover_collection">Select cover collection ...</string>
+    <string name="add">add</string>
+    <string name="cancel">cancel</string>
+    <string name="fill_all_require">Please fill all require field !</string>
 </resources>
