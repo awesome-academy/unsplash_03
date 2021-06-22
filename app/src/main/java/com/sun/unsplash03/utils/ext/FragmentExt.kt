@@ -3,7 +3,7 @@ package com.sun.unsplash03.utils.ext
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 
-fun Fragment.addFragment(
+fun Fragment.replaceFragment(
     @IdRes containerId: Int,
     fragment: Fragment,
     addToBackStack: Boolean = false,
@@ -11,7 +11,7 @@ fun Fragment.addFragment(
     activity?.supportFragmentManager?.apply {
         beginTransaction()
             .addToBackStack(tag)
-            .add(containerId, fragment, tag)
+            .replace(containerId, fragment, tag)
             .commit()
     }
 }
