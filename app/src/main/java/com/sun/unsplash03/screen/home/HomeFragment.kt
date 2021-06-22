@@ -11,8 +11,10 @@ import com.sun.unsplash03.databinding.FragmentHomeBinding
 import com.sun.unsplash03.screen.collection.CollectionFragment
 import com.sun.unsplash03.screen.favorite.FavoriteFragment
 import com.sun.unsplash03.screen.photo.PhotoFragment
+import com.sun.unsplash03.screen.search.SearchFragment
 import com.sun.unsplash03.utils.BottomType
 import com.sun.unsplash03.utils.base.BaseFragment
+import com.sun.unsplash03.utils.ext.replaceFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -88,6 +90,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.searchItem -> {
+                val currentPageId = viewBinding.viewPagerHome.currentItem
+                replaceFragment(R.id.containerFrameLayout, SearchFragment.newInstance(currentPageId))
             }
             else -> Unit
         }

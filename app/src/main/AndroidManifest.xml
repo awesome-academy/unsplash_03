@@ -14,7 +14,9 @@
         android:theme="@style/ThemeUnsplash03">
         <activity
             android:name=".screen.main.MainActivity"
-            android:theme="@style/SplashTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

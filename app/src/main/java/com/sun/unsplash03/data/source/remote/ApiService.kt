@@ -2,6 +2,7 @@ package com.sun.unsplash03.data.source.remote
 
 import com.sun.unsplash03.data.model.Collection
 import com.sun.unsplash03.data.model.Photo
+import com.sun.unsplash03.data.model.SearchPhotoResponse
 import com.sun.unsplash03.utils.Constants
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -26,4 +27,11 @@ interface ApiService {
         @Query("page") page: Int? = null,
         @Query("per_page") perPage: Int = Constants.PER_PAGE_DEFAULT
     ): MutableList<Photo>
+
+    @GET("/search/photos")
+    suspend fun searchPhotos(
+        @Query("query") query: String,
+        @Query("page") page: Int? = null,
+        @Query("per_page") perPage: Int = Constants.PER_PAGE_DEFAULT
+    ): SearchPhotoResponse
 }
