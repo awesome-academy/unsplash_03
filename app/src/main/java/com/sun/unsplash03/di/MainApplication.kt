@@ -11,6 +11,9 @@ class MainApplication : Application() {
         super.onCreate()
 
         val modules = listOf(
+            networkModule,
+            dataSourceModule,
+            repositoryModule,
             viewModelModule
         )
         startKoin {
