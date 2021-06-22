@@ -12,6 +12,10 @@ interface PhotoDataSource {
     interface Local {
         suspend fun insertCollection(collection: CollectionEntity)
 
+        suspend fun deleteCollection(collection: CollectionEntity)
+
+        suspend fun updateCollection(collection: CollectionEntity)
+
         fun getAllCollections(): LiveData<MutableList<CollectionEntity>>
     }
 

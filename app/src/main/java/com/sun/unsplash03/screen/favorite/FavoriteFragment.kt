@@ -2,6 +2,7 @@ package com.sun.unsplash03.screen.favorite
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -24,6 +25,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>() {
 
+    private var titleCollection = ""
+    private var collectionUpdateId = 0
+    private var isUpdateMode = false
+
     private val collectionAdapter by lazy {
         FavoriteCollectionAdapter(
             ::clickItem,
@@ -31,7 +36,6 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
             ::clickEdit
         )
     }
-    private var titleCollection = ""
 
     override val viewModel: FavoriteViewModel by viewModel()
 
@@ -73,14 +77,17 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
                 val columnIndex = cursor?.getColumnIndex(filePathColumn[0])
                 columnIndex?.let {
                     val picturePath = cursor.getString(columnIndex)
-                    showAddCollectionDialog(titleCollection, picturePath)
+                    val entity = CollectionEntity(title = titleCollection, coverPath = picturePath)
+                    showAddCollectionDialog(entity)
                 }
                 cursor?.close()
             }
         }
     }
 
-    private fun showAddCollectionDialog(name: String = "", imagePath: String = "") {
+    private fun showAddCollectionDialog(
+        collection: CollectionEntity? = null
+    ) {
         val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
         Dialog(requireContext()).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -91,24 +98,42 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
                 null,
                 false
             )
+            if (isUpdateMode) binding.buttonAddCollection.text = getString(R.string.update)
             setContentView(binding.root)
             window?.setLayout(width, ConstraintLayout.LayoutParams.WRAP_CONTENT)
             binding.run {
-                if (name.isNotEmpty()) editTextTitleCollection.setText(name)
-                if (imagePath.isNotEmpty()) editTextCoverCollection.setText(imagePath)
+                collection?.run {
+                    if (id != 0) collectionUpdateId = id
+                    if (title.isNotEmpty()) editTextTitleCollection.setText(title)
+                    if (coverPath.isNotEmpty()) editTextCoverCollection.setText(coverPath)
+                }
                 editTextCoverCollection.setOnClickListener {
                     titleCollection = binding.editTextTitleCollection.text.toString()
                     pickImage()
                     dismiss()
                 }
-                buttonCancel.setOnClickListener { dismiss() }
+                buttonCancel.setOnClickListener {
+                    dismiss()
+                    isUpdateMode = false
+                }
                 buttonAddCollection.setOnClickListener {
                     val title = editTextTitleCollection.text.toString().trim()
                     val cover = editTextCoverCollection.text.toString().trim()
                     if (title.isNotEmpty() && cover.isNotEmpty()) {
-                        val collection = CollectionEntity(title = title, coverPath = cover)
-                        viewModel.insertCollection(collection)
+                        val entity: CollectionEntity
+                        if (isUpdateMode) {
+                            entity = CollectionEntity(
+                                id = collectionUpdateId,
+                                title = title,
+                                coverPath = cover
+                            )
+                            viewModel.updateCollection(entity)
+                        } else {
+                            entity = CollectionEntity(title = title, coverPath = cover)
+                            viewModel.insertCollection(entity)
+                        }
                         dismiss()
+                        isUpdateMode = false
                     } else {
                         Toast.makeText(
                             requireContext(),
@@ -121,13 +146,30 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
         }.show()
     }
 
+    private fun showAlertDialogDelete(collection: CollectionEntity) {
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle(resources.getString(R.string.app_name))
+            setMessage(getString(R.string.msg_delete))
+            setNegativeButton(getString(R.string.cancel), null)
+            setPositiveButton(
+                getString(R.string.delete)
+            ) { dialog, _ ->
+                viewModel.deleteCollection(collection)
+                dialog.dismiss()
+            }
+        }.show()
+    }
+
     private fun clickItem(collection: CollectionEntity) {
     }
 
     private fun clickDelete(collection: CollectionEntity) {
+        showAlertDialogDelete(collection)
     }
 
     private fun clickEdit(collection: CollectionEntity) {
+        isUpdateMode = true
+        showAddCollectionDialog(collection)
     }
 
     private fun pickImage() {
@@ -140,6 +182,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
             requireContext(),
             Manifest.permission.READ_EXTERNAL_STORAGE
         )
+
         if (permission != PackageManager.PERMISSION_GRANTED) {
             makeRequest()
         }
