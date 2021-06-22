@@ -2,6 +2,7 @@ package com.sun.unsplash03.utils
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -33,12 +34,23 @@ object BindingUtils {
         addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recycler: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recycler, dx, dy)
-                (recycler.layoutManager as StaggeredGridLayoutManager).run {
-                    if (dy > 0) {
-                        val lastVisibleItemPosition =
-                            getLastVisibleItem(findLastVisibleItemPositions(null))
-                        if (!isLoad && (childCount + lastVisibleItemPosition) >= itemCount) {
-                            loadMoreListener.onLoadData()
+                if (dy > 0) {
+                    when (recycler.layoutManager) {
+                        is LinearLayoutManager -> {
+                            (recycler.layoutManager as LinearLayoutManager).run {
+                                if (!isLoad && findLastCompletelyVisibleItemPosition() == itemCount - 1) {
+                                    loadMoreListener.onLoadData()
+                                }
+                            }
+                        }
+                        is StaggeredGridLayoutManager -> {
+                            (recycler.layoutManager as StaggeredGridLayoutManager).run {
+                                val lastVisibleItemPosition =
+                                    getLastVisibleItem(findLastVisibleItemPositions(null))
+                                if (!isLoad && (childCount + lastVisibleItemPosition) >= itemCount) {
+                                    loadMoreListener.onLoadData()
+                                }
+                            }
                         }
                     }
                 }
