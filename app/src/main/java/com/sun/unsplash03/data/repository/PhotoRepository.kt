@@ -15,4 +15,6 @@ interface PhotoRepository {
     ): DataResult<MutableList<Photo>>
 
     suspend fun searchPhotos(query: String, page: Int?): DataResult<MutableList<Photo>>
+
+    suspend fun searchCollections(query: String, page: Int?): DataResult<MutableList<Collection>>
 }
