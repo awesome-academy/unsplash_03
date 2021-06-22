@@ -12,8 +12,6 @@ class DetailViewModel : BaseViewModel() {
         get() = _photos
 
     fun setPhoto(data: Photo?) {
-        data?.let {
-            _photos.value = it
-        }
+        data?.let { _photos.value = it }
     }
 }

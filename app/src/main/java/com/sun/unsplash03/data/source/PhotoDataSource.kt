@@ -9,6 +9,9 @@ interface PhotoDataSource {
 
     interface Remote {
         suspend fun getPhotos(page: Int?): MutableList<Photo>
+
         suspend fun getCollections(page: Int?): MutableList<Collection>
+
+        suspend fun getCollectionPhotos(collectionId: String, page: Int?): MutableList<Photo>
     }
 }
