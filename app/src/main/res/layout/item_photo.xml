@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dp_5"
-    app:cardCornerRadius="@dimen/dp_5">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/imageUnsplash"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.sun.unsplash03.screen.photo.adapter.ItemPhotoViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop" />
-</androidx.cardview.widget.CardView>
+        android:layout_margin="@dimen/dp_5"
+        android:onClick="@{viewModel::onItemClicked}"
+        app:cardCornerRadius="@dimen/dp_5">
+
+        <ImageView
+            android:id="@+id/imageUnsplash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:imageUrl="@{viewModel.photo.urls.small}" />
+    </androidx.cardview.widget.CardView>
+</layout>
