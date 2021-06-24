@@ -3,10 +3,13 @@ package com.sun.unsplash03.screen.photo
 import android.view.LayoutInflater
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.sun.unsplash03.R
 import com.sun.unsplash03.data.model.Photo
 import com.sun.unsplash03.databinding.FragmentPhotoBinding
+import com.sun.unsplash03.screen.detail.DetailFragment
 import com.sun.unsplash03.screen.photo.adapter.PhotoAdapter
 import com.sun.unsplash03.utils.base.BaseFragment
+import com.sun.unsplash03.utils.ext.replaceFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PhotoFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>() {
@@ -37,6 +40,7 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>() {
     }
 
     private fun clickPhotoItem(photo: Photo) {
+        replaceFragment(R.id.containerFrameLayout, DetailFragment.newInstance(photo))
     }
 
     private fun updatePhotos(photos: MutableList<Photo>) {
