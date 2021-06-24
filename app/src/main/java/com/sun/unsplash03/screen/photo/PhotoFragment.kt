@@ -27,16 +27,8 @@ class PhotoFragment : BaseFragment<FragmentPhotoBinding, PhotoViewModel>() {
     }
 
     override fun bindView() {
-        viewBinding.run {
-            swipeRefreshMain.run {
-                setOnRefreshListener {
-                    isRefreshing = false
-                    viewModel?.getPhotos()
-                }
-            }
-            (recyclerPhoto.layoutManager as StaggeredGridLayoutManager).gapStrategy =
-                StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
-        }
+        (viewBinding.recyclerPhoto.layoutManager as StaggeredGridLayoutManager).gapStrategy =
+            StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
     }
 
     override fun registerLiveData() = with(viewModel) {
