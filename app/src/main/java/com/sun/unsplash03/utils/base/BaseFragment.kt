@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.sun.unsplash03.widget.DialogManager
@@ -24,7 +25,11 @@ abstract class BaseFragment<viewBinding : ViewDataBinding, viewModel : BaseViewM
         dialogManager = DialogManagerImpl(getContext())
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         _viewBinding = inflateViewBinding(inflater)
         return viewBinding.root
     }
@@ -52,6 +57,9 @@ abstract class BaseFragment<viewBinding : ViewDataBinding, viewModel : BaseViewM
         viewModel.run {
             isLoading.observe(viewLifecycleOwner, {
                 if (it) showLoading() else hideLoading()
+            })
+            exception.observe(viewLifecycleOwner, {
+                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
             })
         }
     }

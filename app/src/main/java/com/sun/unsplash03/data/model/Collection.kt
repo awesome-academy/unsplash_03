@@ -1,7 +1,10 @@
 package com.sun.unsplash03.data.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Collection(
     val id: String = "",
     val title: String = "",
-    val urls: PhotoUrls
+    @SerializedName("cover_photo")
+    val coverPhoto: CoverPhoto
 )
