@@ -17,14 +17,17 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshCollection"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:onRefresh="@{viewModel.onRefresh}">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerCollection"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:adapter="@{adapter}"
+            app:isLoad="@{viewModel.isLoading}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:onLoadMore="@{viewModel.onLoadData}"
             tools:listitem="@layout/item_collection" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
