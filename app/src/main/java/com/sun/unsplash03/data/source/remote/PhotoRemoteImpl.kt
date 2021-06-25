@@ -7,4 +7,7 @@ class PhotoRemoteImpl(private val apiService: ApiService) : PhotoDataSource.Remo
     override suspend fun getPhotos(page: Int?) = apiService.getPhotos(page)
 
     override suspend fun getCollections(page: Int?) = apiService.getCollections(page)
+
+    override suspend fun getCollectionPhotos(collectionId: String, page: Int?) =
+        apiService.getCollectionPhotos(collectionId, page)
 }

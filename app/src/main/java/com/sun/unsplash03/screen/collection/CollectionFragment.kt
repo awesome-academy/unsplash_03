@@ -2,10 +2,13 @@ package com.sun.unsplash03.screen.collection
 
 import android.view.LayoutInflater
 import androidx.lifecycle.Observer
+import com.sun.unsplash03.R
 import com.sun.unsplash03.data.model.Collection
 import com.sun.unsplash03.databinding.FragmentCollectionBinding
 import com.sun.unsplash03.screen.collection.adapter.CollectionAdapter
+import com.sun.unsplash03.screen.collection_photo.CollectionPhotoFragment
 import com.sun.unsplash03.utils.base.BaseFragment
+import com.sun.unsplash03.utils.ext.replaceFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CollectionFragment : BaseFragment<FragmentCollectionBinding, CollectionViewModel>() {
@@ -38,6 +41,7 @@ class CollectionFragment : BaseFragment<FragmentCollectionBinding, CollectionVie
     }
 
     private fun clickItemCollection(collection: Collection) {
+        replaceFragment(R.id.containerFrameLayout, CollectionPhotoFragment.newInstance(collection))
     }
 
     companion object {

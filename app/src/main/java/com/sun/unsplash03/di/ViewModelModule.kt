@@ -1,6 +1,7 @@
 package com.sun.unsplash03.di
 
 import com.sun.unsplash03.screen.collection.CollectionViewModel
+import com.sun.unsplash03.screen.collection_photo.CollectionPhotoViewModel
 import com.sun.unsplash03.screen.detail.DetailViewModel
 import com.sun.unsplash03.screen.favorite.FavoriteViewModel
 import com.sun.unsplash03.screen.home.HomeViewModel
@@ -16,4 +17,5 @@ val viewModelModule = module {
     viewModel { CollectionViewModel(get()) }
     viewModel { FavoriteViewModel() }
     viewModel { DetailViewModel() }
+    viewModel { CollectionPhotoViewModel(get()) }
 }
