@@ -1,6 +1,5 @@
 package com.sun.unsplash03.data.source.remote
 
-import com.sun.unsplash03.data.model.Photo
 import com.sun.unsplash03.data.source.PhotoDataSource
 
 class PhotoRemoteImpl(private val apiService: ApiService) : PhotoDataSource.Remote {
@@ -14,4 +13,7 @@ class PhotoRemoteImpl(private val apiService: ApiService) : PhotoDataSource.Remo
 
     override suspend fun searchPhotos(query: String, page: Int?) =
         apiService.searchPhotos(query, page)
+
+    override suspend fun searchCollections(query: String, page: Int?) =
+        apiService.searchCollections(query, page)
 }

@@ -8,8 +8,12 @@
             type="com.sun.unsplash03.screen.search.SearchViewModel" />
 
         <variable
-            name="adapter"
+            name="adapterPhoto"
             type="com.sun.unsplash03.screen.photo.adapter.PhotoAdapter" />
+
+        <variable
+            name="adapterCollection"
+            type="com.sun.unsplash03.screen.collection.adapter.CollectionAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

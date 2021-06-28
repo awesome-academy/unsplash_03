@@ -18,4 +18,9 @@ class PhotoRepositoryImpl(private val remote: PhotoDataSource.Remote) : PhotoRep
 
     override suspend fun searchPhotos(query: String, page: Int?) =
         withResultContext { remote.searchPhotos(query, page).results }
+
+    override suspend fun searchCollections(
+        query: String,
+        page: Int?
+    ) = withResultContext { remote.searchCollections(query, page).results }
 }
