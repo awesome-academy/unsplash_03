@@ -7,6 +7,7 @@ import com.sun.unsplash03.screen.favorite.FavoriteViewModel
 import com.sun.unsplash03.screen.home.HomeViewModel
 import com.sun.unsplash03.screen.main.MainViewModel
 import com.sun.unsplash03.screen.photo.PhotoViewModel
+import com.sun.unsplash03.screen.photo_favorite.PhotoFavoriteViewModel
 import com.sun.unsplash03.screen.search.SearchViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -17,7 +18,8 @@ val viewModelModule = module {
     viewModel { PhotoViewModel(get()) }
     viewModel { CollectionViewModel(get()) }
     viewModel { FavoriteViewModel(get()) }
-    viewModel { DetailViewModel() }
+    viewModel { DetailViewModel(get()) }
     viewModel { CollectionPhotoViewModel(get()) }
     viewModel { SearchViewModel(get()) }
+    viewModel { PhotoFavoriteViewModel(get()) }
 }

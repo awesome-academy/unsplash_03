@@ -20,7 +20,9 @@ import com.sun.unsplash03.data.source.local.entity.CollectionEntity
 import com.sun.unsplash03.databinding.DialogInsertCollectionBinding
 import com.sun.unsplash03.databinding.FragmentFavoriteBinding
 import com.sun.unsplash03.screen.favorite.adapter.FavoriteCollectionAdapter
+import com.sun.unsplash03.screen.photo_favorite.PhotoFavoriteFragment
 import com.sun.unsplash03.utils.base.BaseFragment
+import com.sun.unsplash03.utils.ext.replaceFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>() {
@@ -161,6 +163,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     }
 
     private fun clickItem(collection: CollectionEntity) {
+        replaceFragment(R.id.containerFrameLayout, PhotoFavoriteFragment.newInstance(collection))
     }
 
     private fun clickDelete(collection: CollectionEntity) {

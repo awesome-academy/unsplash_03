@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.sun.unsplash03.data.model.Collection
 import com.sun.unsplash03.data.model.Photo
 import com.sun.unsplash03.data.source.local.entity.CollectionEntity
+import com.sun.unsplash03.data.source.local.entity.PhotoEntity
 import com.sun.unsplash03.utils.scheduler.DataResult
 
 interface PhotoRepository {
@@ -27,4 +28,10 @@ interface PhotoRepository {
     suspend fun deleteCollection(collection: CollectionEntity)
 
     suspend fun updateCollection(collection: CollectionEntity)
+
+    suspend fun insertPhotoFavorite(photo: PhotoEntity)
+
+    suspend fun deletePhotoFavorite(photo: PhotoEntity)
+
+    fun getAllPhotoFavorite(collectionId: Int): LiveData<MutableList<PhotoEntity>>
 }
