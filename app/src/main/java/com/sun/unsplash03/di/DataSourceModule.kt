@@ -2,8 +2,8 @@ package com.sun.unsplash03.di
 
 import androidx.room.Room
 import com.sun.unsplash03.data.source.PhotoDataSource
-import com.sun.unsplash03.data.source.PhotoLocalImpl
 import com.sun.unsplash03.data.source.local.AppDatabase
+import com.sun.unsplash03.data.source.local.PhotoLocalImpl
 import com.sun.unsplash03.data.source.local.dao.CollectionDAO
 import com.sun.unsplash03.data.source.remote.PhotoRemoteImpl
 import com.sun.unsplash03.utils.Constants
