@@ -12,4 +12,5 @@
     <string name="fill_all_require">Please fill all require field !</string>
     <string name="msg_delete">Are you sure want to delete ?</string>
     <string name="update">Update</string>
+    <string name="download">Download</string>
 </resources>

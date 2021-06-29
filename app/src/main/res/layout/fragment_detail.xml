@@ -21,6 +21,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_back" />
+            app:navigationIcon="@drawable/ic_back"
+            app:titleTextColor="@android:color/white" />
+
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/photoViewDetail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:imageUrl="@{viewModel.photo.urls.full}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbarDetail" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
