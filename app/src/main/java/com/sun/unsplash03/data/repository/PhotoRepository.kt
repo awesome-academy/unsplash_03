@@ -1,5 +1,6 @@
 package com.sun.unsplash03.data.repository
 
+import androidx.lifecycle.LiveData
 import com.sun.unsplash03.data.model.Collection
 import com.sun.unsplash03.data.model.Photo
 import com.sun.unsplash03.data.source.local.entity.CollectionEntity
@@ -20,4 +21,6 @@ interface PhotoRepository {
     suspend fun searchCollections(query: String, page: Int?): DataResult<MutableList<Collection>>
 
     suspend fun insertCollection(collection: CollectionEntity)
+
+    fun getAllCollections(): LiveData<MutableList<CollectionEntity>>
 }

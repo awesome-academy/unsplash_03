@@ -30,4 +30,6 @@ class PhotoRepositoryImpl(
 
     override suspend fun insertCollection(collection: CollectionEntity) =
         local.insertCollection(collection)
+
+    override fun getAllCollections() = local.getAllCollections()
 }

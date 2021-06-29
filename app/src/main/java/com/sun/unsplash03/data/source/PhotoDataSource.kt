@@ -1,5 +1,6 @@
 package com.sun.unsplash03.data.source
 
+import androidx.lifecycle.LiveData
 import com.sun.unsplash03.data.model.Collection
 import com.sun.unsplash03.data.model.Photo
 import com.sun.unsplash03.data.model.SearchCollectionResponse
@@ -10,6 +11,8 @@ interface PhotoDataSource {
 
     interface Local {
         suspend fun insertCollection(collection: CollectionEntity)
+
+        fun getAllCollections(): LiveData<MutableList<CollectionEntity>>
     }
 
     interface Remote {

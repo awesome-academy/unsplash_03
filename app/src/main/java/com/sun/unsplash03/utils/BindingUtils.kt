@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.sun.unsplash03.utils.ext.loadImageWithUri
 import com.sun.unsplash03.utils.ext.loadImageWithUrl
 
 object BindingUtils {
@@ -15,6 +16,14 @@ object BindingUtils {
     fun setImageUrl(imageView: ImageView, url: String?) {
         url?.let {
             imageView.loadImageWithUrl(it)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:imageWithUri")
+    fun setImageUri(imageView: ImageView, url: String?) {
+        url?.let {
+            imageView.loadImageWithUri(it)
         }
     }
 
