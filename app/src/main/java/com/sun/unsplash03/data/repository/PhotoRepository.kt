@@ -2,6 +2,7 @@ package com.sun.unsplash03.data.repository
 
 import com.sun.unsplash03.data.model.Collection
 import com.sun.unsplash03.data.model.Photo
+import com.sun.unsplash03.data.source.local.entity.CollectionEntity
 import com.sun.unsplash03.utils.scheduler.DataResult
 
 interface PhotoRepository {
@@ -17,4 +18,6 @@ interface PhotoRepository {
     suspend fun searchPhotos(query: String, page: Int?): DataResult<MutableList<Photo>>
 
     suspend fun searchCollections(query: String, page: Int?): DataResult<MutableList<Collection>>
+
+    suspend fun insertCollection(collection: CollectionEntity)
 }

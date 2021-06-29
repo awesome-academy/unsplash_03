@@ -1,9 +1,13 @@
 package com.sun.unsplash03.data.repository
 
 import com.sun.unsplash03.data.source.PhotoDataSource
+import com.sun.unsplash03.data.source.local.entity.CollectionEntity
 import com.sun.unsplash03.utils.base.BaseRepository
 
-class PhotoRepositoryImpl(private val remote: PhotoDataSource.Remote) : PhotoRepository,
+class PhotoRepositoryImpl(
+    private val local: PhotoDataSource.Local,
+    private val remote: PhotoDataSource.Remote
+) : PhotoRepository,
     BaseRepository() {
 
     override suspend fun getPhotos(page: Int?) = withResultContext { remote.getPhotos(page) }
@@ -23,4 +27,7 @@ class PhotoRepositoryImpl(private val remote: PhotoDataSource.Remote) : PhotoRep
         query: String,
         page: Int?
     ) = withResultContext { remote.searchCollections(query, page).results }
+
+    override suspend fun insertCollection(collection: CollectionEntity) =
+        local.insertCollection(collection)
 }
