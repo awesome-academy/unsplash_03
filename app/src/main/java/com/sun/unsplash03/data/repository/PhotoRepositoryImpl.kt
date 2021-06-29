@@ -2,6 +2,7 @@ package com.sun.unsplash03.data.repository
 
 import com.sun.unsplash03.data.source.PhotoDataSource
 import com.sun.unsplash03.data.source.local.entity.CollectionEntity
+import com.sun.unsplash03.data.source.local.entity.PhotoEntity
 import com.sun.unsplash03.utils.base.BaseRepository
 
 class PhotoRepositoryImpl(
@@ -38,4 +39,10 @@ class PhotoRepositoryImpl(
 
     override suspend fun updateCollection(collection: CollectionEntity) =
         local.updateCollection(collection)
+
+    override suspend fun insertPhotoFavorite(photo: PhotoEntity) = local.insertPhotoFavorite(photo)
+
+    override suspend fun deletePhotoFavorite(photo: PhotoEntity) = local.deletePhotoFavorite(photo)
+
+    override fun getAllPhotoFavorite(collectionId: Int) = local.getAllPhotoFavorite(collectionId)
 }

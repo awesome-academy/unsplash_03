@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.sun.unsplash03.screen.photo_favorite.adapter.ItemPhotoFavoriteViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_5"
+        app:cardCornerRadius="@dimen/dp_5">
+
+        <ImageView
+            android:id="@+id/imageUnsplash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:imageUrl="@{viewModel.photo.imageUrl}" />
+
+        <ImageButton
+            android:id="@+id/imageButtonRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:onClick="@{viewModel::onItemClick}"
+            android:src="@drawable/ic_remove" />
+    </androidx.cardview.widget.CardView>
+</layout>

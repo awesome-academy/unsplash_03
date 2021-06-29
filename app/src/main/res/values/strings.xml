@@ -13,4 +13,6 @@
     <string name="msg_delete">Are you sure want to delete ?</string>
     <string name="update">Update</string>
     <string name="download">Download</string>
+    <string name="msg_empty_collections">You should add favorite collection first !</string>
+    <string name="photo_add">Photo added !</string>
 </resources>

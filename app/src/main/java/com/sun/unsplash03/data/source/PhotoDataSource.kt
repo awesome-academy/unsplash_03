@@ -6,6 +6,7 @@ import com.sun.unsplash03.data.model.Photo
 import com.sun.unsplash03.data.model.SearchCollectionResponse
 import com.sun.unsplash03.data.model.SearchPhotoResponse
 import com.sun.unsplash03.data.source.local.entity.CollectionEntity
+import com.sun.unsplash03.data.source.local.entity.PhotoEntity
 
 interface PhotoDataSource {
 
@@ -16,7 +17,13 @@ interface PhotoDataSource {
 
         suspend fun updateCollection(collection: CollectionEntity)
 
+        suspend fun insertPhotoFavorite(photo: PhotoEntity)
+
+        suspend fun deletePhotoFavorite(photo: PhotoEntity)
+
         fun getAllCollections(): LiveData<MutableList<CollectionEntity>>
+
+        fun getAllPhotoFavorite(collectionId: Int): LiveData<MutableList<PhotoEntity>>
     }
 
     interface Remote {
