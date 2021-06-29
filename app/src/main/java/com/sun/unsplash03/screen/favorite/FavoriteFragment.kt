@@ -18,11 +18,19 @@ import com.sun.unsplash03.R
 import com.sun.unsplash03.data.source.local.entity.CollectionEntity
 import com.sun.unsplash03.databinding.DialogInsertCollectionBinding
 import com.sun.unsplash03.databinding.FragmentFavoriteBinding
+import com.sun.unsplash03.screen.favorite.adapter.FavoriteCollectionAdapter
 import com.sun.unsplash03.utils.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel>() {
 
+    private val collectionAdapter by lazy {
+        FavoriteCollectionAdapter(
+            ::clickItem,
+            ::clickDelete,
+            ::clickEdit
+        )
+    }
     private var titleCollection = ""
 
     override val viewModel: FavoriteViewModel by viewModel()
@@ -34,6 +42,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
         viewBinding.run {
             lifecycleOwner = this@FavoriteFragment.viewLifecycleOwner
             viewModel = this@FavoriteFragment.viewModel
+            adapter = collectionAdapter
         }
         setupPermissions()
     }
@@ -48,6 +57,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
     }
 
     private fun updateCollectionsData(collections: MutableList<CollectionEntity>) {
+        collectionAdapter.submitList(collections)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, dataImage: Intent?) {
