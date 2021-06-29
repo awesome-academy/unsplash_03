@@ -8,5 +8,8 @@
     <string name="select_cover_collection">Select cover collection ...</string>
     <string name="add">add</string>
     <string name="cancel">cancel</string>
+    <string name="delete">Delete</string>
     <string name="fill_all_require">Please fill all require field !</string>
+    <string name="msg_delete">Are you sure want to delete ?</string>
+    <string name="update">Update</string>
 </resources>

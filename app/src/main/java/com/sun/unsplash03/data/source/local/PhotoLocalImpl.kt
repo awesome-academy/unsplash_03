@@ -9,5 +9,11 @@ class PhotoLocalImpl(private val collectionDAO: CollectionDAO) : PhotoDataSource
     override suspend fun insertCollection(collection: CollectionEntity) =
         collectionDAO.insert(collection)
 
+    override suspend fun deleteCollection(collection: CollectionEntity) =
+        collectionDAO.deleteCollection(collection)
+
+    override suspend fun updateCollection(collection: CollectionEntity) =
+        collectionDAO.update(collection)
+
     override fun getAllCollections() = collectionDAO.getAllCollections()
 }

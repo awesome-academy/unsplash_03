@@ -23,4 +23,8 @@ interface PhotoRepository {
     suspend fun insertCollection(collection: CollectionEntity)
 
     fun getAllCollections(): LiveData<MutableList<CollectionEntity>>
+
+    suspend fun deleteCollection(collection: CollectionEntity)
+
+    suspend fun updateCollection(collection: CollectionEntity)
 }

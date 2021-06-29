@@ -13,4 +13,12 @@ class FavoriteViewModel(private val repository: PhotoRepository) : BaseViewModel
     fun insertCollection(collection: CollectionEntity) = viewModelScope.launch {
         repository.insertCollection(collection)
     }
+
+    fun deleteCollection(collection: CollectionEntity) = viewModelScope.launch {
+        repository.deleteCollection(collection)
+    }
+
+    fun updateCollection(collection: CollectionEntity) = viewModelScope.launch {
+        repository.updateCollection(collection)
+    }
 }
